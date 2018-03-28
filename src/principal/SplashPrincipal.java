@@ -1,7 +1,10 @@
 
 package principal;
 
-//
+//errores en la linea 5, 25-27, 129-137
+import com.sun.awt.AWTUtilities;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -13,11 +16,15 @@ import javax.swing.JPanel;
  */
 public class SplashPrincipal extends javax.swing.JFrame {
 
+    private Thread tiempo = null;
     public SplashPrincipal() {
         initComponents();
         
         //centra la pantalla
         this.setLocationRelativeTo(null);
+//        AWTUtilities.setWindowOpaque(this,false);
+//        tiempo = new Thread((Runnable) this);
+//        tiempo.start();
         
         //cambia el icono
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/app100.png")).getImage());
@@ -116,8 +123,18 @@ public class SplashPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new SplashPrincipal().setVisible(true);
+//                while(tiempo != null)
+//                {
+//                    try{
+//                    Thread.sleep(10000);
+//                    this.dispose();
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(SplashPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
             }
         });
     }
