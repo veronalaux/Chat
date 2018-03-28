@@ -141,9 +141,7 @@ public class VentanaServidor extends javax.swing.JFrame {
 //    }catch(Exception e){
 //    }
     
-    
-    
-    
+  
     
     }//GEN-LAST:event_jButton1ActionPerformed
     

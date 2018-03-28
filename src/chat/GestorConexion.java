@@ -25,29 +25,42 @@ public class GestorConexion {
     //enviare el mensaje a todos los que se han conectado en la sesion
     public void enviarTrama(int nCodigo, String sTrama){
         for (MSConexion ms:conexiones){
+            //estamos indicando de que se esta enviando una Trama 
             ms.enviarTrama(nCodigo, sTrama);
+            //de manera que cuando envie una trama, lo que tengo que hacer es mandaer 
+            //la trama al resto de las conexiones que hay en el servidor 
         }
     }
     
     public void conectaNuevo(MSConexion nuevo){
         //aqui el socket se conecta a uno nuevo
+        
+        //recorre todos los elementos que hay de la lista y al nuevo notificamos que alguien mas se conecto en el chat 
         for (MSConexion ms:conexiones){
-            nuevo.enviarTrama(1, ms.getNick());
+            nuevo.enviarTrama(1, ms.getNick()); //el getNick lee el nuevo usuario
+            //enviamos la trama con el Nickname de la persona que se ha conectadoo
         }
         conexiones.add(nuevo);
     }
     
     public void desconecta(MSConexion eliminar){
+        //aqui se envia el elemento que se quiere deconectar
         int nPos=-1;
+        
+        //aqui vamos a recorrer todas las conexiones y comunicaresmos que 
         for (int n=0;n<conexiones.size();n++){
+            //el numero "X" se va a desconectar
+            //nos referimos como numero a la persona y es posible que el nick se pueda repetir 
             if (conexiones.get(n)==eliminar){
                 nPos=n;
             }
         }
+        //aqui se envia la posicion de quie se conecto para que se pueda deconectar
+        //siguiendo la linea de que posiblemente tengamos a dos personas con el mismo nickname
         if (nPos!=-1){
             for (int n=0;n<conexiones.size();n++){
                 if (n!=nPos){
-                    conexiones.get(n).enviarTrama(3, ""+nPos);
+                    conexiones.get(n).enviarTrama(3, ""+nPos);//enviamos la posiscion de quien se tiene que desconectar
                 }
             }
             conexiones.remove(nPos);

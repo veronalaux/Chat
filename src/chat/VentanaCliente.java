@@ -191,16 +191,20 @@ public class VentanaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-// TODO add your handling code here:
-        if (cliente!=null){
+// en principio aparece como no habilitado, una vez que estemos conectados, este se habilitara para que el usuario tenga
+//la opcion de desconcetarse y asi salir de la sesion 
+        if (cliente!=null)
+        {
             cliente.enviarTrama(3, "");
             cliente.interrupt();
         }
         cliente = null;
+        //indica que socket se quiere comunicar al servidor
         jButton1.setEnabled(true);
         jButton2.setEnabled(false);
-        dlm.removeAllElements();
-        jTextArea1.setText("");
+        
+        dlm.removeAllElements();//aqui limpiamos a la persona que se desconecto del TextModel
+        jTextArea1.setText("");//digamos que aqui ya se fue y quedo vacia su posicion 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
@@ -216,6 +220,12 @@ public class VentanaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3KeyPressed
 
     DefaultListModel dlm=new DefaultListModel();
+    //es la informacion que lleva el Jlist, se crea vacio
+    //para que cada vexz que se envia informacion haga la operacion 
+    //ver Linea 263  dlm.addElement(nick);
+    
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
         jList1.setModel(dlm);
@@ -230,6 +240,7 @@ public class VentanaCliente extends javax.swing.JFrame {
                 cliente.start();  //empezamos a ejecutar el hilo 
                                    //siempre debemos poner que se debe ejecutar..no olvidar que si lo encendemos, tambien lo debemos apagar 
             }
+            //si pulso conectar, la opcion de desconcetar se desactiva y viceversa 
             jButton1.setEnabled(false);
             jButton2.setEnabled(true);
         }catch(Exception e){
@@ -253,11 +264,13 @@ public class VentanaCliente extends javax.swing.JFrame {
     }
     
     public void nuevaPersona(String nick){
-        dlm.addElement(nick);
+        //se añade nuevo usuario para que posteriormente se muestre que se ha agregado una nueva persona al chat
+        dlm.addElement(nick); //se modiifica el modelo, para qeue el Jlist sea modificado
     }
     
     public void borrarPersona(int nPos){
-        dlm.remove(nPos);
+        //indicamos que se quiere salir de la conexion
+        dlm.remove(nPos); //borramos del modelo, la posicion que nos indique 
     }
     
     /**

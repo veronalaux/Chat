@@ -47,9 +47,11 @@ public class MSConexion extends Thread{
         //esa conexion que se esta realizando entre los clientes 
         while (true){
             try{
-                int nCodigo=dis.readInt();
+                int nCodigo=dis.readInt(); //la escucha de esa trama por medio de un entero
                 String sTrama=dis.readUTF();//leo ese mensaje
                 switch(nCodigo){
+                    //cuando se envia un mensaje, lo que hace es que sabemos quien de los clientes ha enviado un mensaje 
+                    //enviando una concatenacion de parametros 
                     case 1:
                         nick=sTrama;
                         
@@ -59,7 +61,10 @@ public class MSConexion extends Thread{
                         sTrama="<" + nick + "> - " + sTrama;
                         GestorConexion.getInstance().enviarTrama(nCodigo, sTrama);
                         break;
+                        
+                        //para el servidor 
                     case 3:
+                        //vamos a desconectar a la persona para que identifique la posicion de dicha persona 
                         GestorConexion.getInstance().desconecta(this);
                         break;
                 }

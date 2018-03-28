@@ -42,12 +42,13 @@ public class client extends Thread{ //crear un hilo
             s=new Socket(url, port);
             //el Input recibe la informacion del servidor
             DataInputStream dis=new DataInputStream(s.getInputStream());
-            enviarTrama(1, nick);
+            enviarTrama(1, nick); //informacion que lleva de los usuarios que se han conectadoo
             bConectado=true;
             while(bConectado){ //vamos a ir leyendo strings
-                int nCodigo =dis.readInt();
+                int nCodigo =dis.readInt(); // en el hilo del cliente, cuando reciba un elemento ++*
                 String sTrama=dis.readUTF(); //a traves del hilo se comunicara con nosotros y nos envaiara el mensaje 
-
+                //++*va a tener que leer la trama  y hacer la funcion de la operacion del protocolo de comunicacion que se pretende hacer 
+                //recordemos que esta siguiendo el modelo de TCP/IP
                 switch(nCodigo){
                     case 1:
                         ventana.nuevaPersona(sTrama);
@@ -55,10 +56,15 @@ public class client extends Thread{ //crear un hilo
                     case 2:
                         ventana.mensajeRecibido(sTrama);
                         break;
+                        
+                        //dentro del hilo del cliente 
                     case 3:
+                        //se lee la posicion 
+                        //try y catch es para que no se caiga la conexion
                         try{
                             int nPos = Integer.parseInt(sTrama);
-                            ventana.borrarPersona(nPos);
+                            ventana.borrarPersona(nPos); //a la ventana le indicamos que se quieere salir esa persona
+                                        //es decir, la posicion de la persona que se quiere salir de la sesion 
                         }catch(Exception e2){
                         }
                         break;
@@ -81,8 +87,9 @@ public class client extends Thread{ //crear un hilo
             //envio de bytes y facilita la comunicacion por lo que lo convierte
             //a vector de bytes y los comunica entre ellos
             DataOutputStream dos=new DataOutputStream(s.getOutputStream());
-            dos.writeInt(nCodigo);
-            dos.writeUTF(sTrama);
+            dos.writeInt(nCodigo);//envio un entero que indica el codigo del mensaje
+            dos.writeUTF(sTrama); //es el mensaje en si
+            //trama es una serie de bits que transportan esa informacion
         }catch(Exception e){
             JOptionPane.showMessageDialog(ventana, "No se pudo enviar el mensaje");
         }
