@@ -111,7 +111,7 @@ public class VentanaCliente extends javax.swing.JFrame {
             }
         });
 
-        jTextField4.setText("Nick");
+        jTextField4.setText("Nickname");
 
         jScrollPane2.setViewportView(jList1);
 
@@ -208,10 +208,10 @@ public class VentanaCliente extends javax.swing.JFrame {
         if (evt.getKeyCode()==10)//el 10 la tecla de enter 
         {
             //se envia el mensaje a los demas clientes que se han conectado
-            cliente.enviarMensaje(jTextField3.getText());
+            cliente.enviarMensaje(jTextField3.getText());//notifco al cliente que he escrito un texto
             //una vez que que ha recibido un mensaje de otro cliente
             //lo va amostrar en el textarea
-            jTextField3.setText("");
+            jTextField3.setText(""); //limpio el textfield para escribir mas
         }
     }//GEN-LAST:event_jTextField3KeyPressed
 
