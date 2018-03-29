@@ -1,5 +1,5 @@
 /*
- * MSConexion.java
+ * ControlConexion.java
  * si alguien recibe del cliente que se envio el mensaje, se estaran conectando 
  * digamos que los clientes envian su mensaje, yo como servidor, lo que tengo que hacer
  * es tratar de establecer esa comunicacion que se esta realizando entre los clientes 
@@ -16,7 +16,7 @@ import java.net.Socket;
  *
  * @author 
  */
-public class MSConexion extends Thread{ 
+public class ControlConexion extends Thread{ 
     //creamos el hilo que es el que estara escuchando  
     
     
@@ -26,7 +26,7 @@ public class MSConexion extends Thread{
     private String nick;
     
     /** Creates a new instance of MSConexion */
-    public MSConexion(Socket s) {
+    public ControlConexion(Socket s) {
         try{
             this.s=s; //aqui es la parte del server 
             dis=new DataInputStream(s.getInputStream());//recibo ese mensaje //cliente  me manda ese mensaje

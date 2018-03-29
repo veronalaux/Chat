@@ -40,7 +40,7 @@ public class server extends Thread{ //hilo para abrir la aplicacion
                 //y lo volvemos a escuchar, es por eso que lo metimos en un bucle
                 //y asi otro cliente se pueda conectar a nuestro chat 
                 //y ese nuevo se pueda insertar en la lista 
-                GestorConexion.getInstance().conectaNuevo(new MSConexion(s));
+                GestorConexion.getInstance().conectaNuevo(new ControlConexion(s));
             }
             //JOptionPane.showMessageDialog(ventana,"Se han conectado");
         }catch(Exception e){

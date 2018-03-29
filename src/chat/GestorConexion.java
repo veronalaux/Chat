@@ -20,11 +20,11 @@ public class GestorConexion {
         return singleton;
     }
     //cuando alguien se conecta, lo inserto en el arrayList
-    private ArrayList<MSConexion> conexiones = new ArrayList<MSConexion>();
+    private ArrayList<ControlConexion> conexiones = new ArrayList<ControlConexion>();
     //y cuando alguien envia un mensaje, a traves del arrayList 
     //enviare el mensaje a todos los que se han conectado en la sesion
     public void enviarTrama(int nCodigo, String sTrama){
-        for (MSConexion ms:conexiones){
+        for (ControlConexion ms:conexiones){
             //estamos indicando de que se esta enviando una Trama 
             ms.enviarTrama(nCodigo, sTrama);
             //de manera que cuando envie una trama, lo que tengo que hacer es mandaer 
@@ -32,18 +32,18 @@ public class GestorConexion {
         }
     }
     
-    public void conectaNuevo(MSConexion nuevo){
+    public void conectaNuevo(ControlConexion nuevo){
         //aqui el socket se conecta a uno nuevo
         
         //recorre todos los elementos que hay de la lista y al nuevo notificamos que alguien mas se conecto en el chat 
-        for (MSConexion ms:conexiones){
+        for (ControlConexion ms:conexiones){
             nuevo.enviarTrama(1, ms.getNick()); //el getNick lee el nuevo usuario
             //enviamos la trama con el Nickname de la persona que se ha conectadoo
         }
         conexiones.add(nuevo);
     }
     
-    public void desconecta(MSConexion eliminar){
+    public void desconecta(ControlConexion eliminar){
         //aqui se envia el elemento que se quiere deconectar
         int nPos=-1;
         

@@ -1,7 +1,7 @@
-
 package principal;
 
 //errores en la linea 5, 25-27, 129-137
+import chat.VentanaPrincipal;
 import com.sun.awt.AWTUtilities;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,29 +16,30 @@ import javax.swing.JPanel;
  */
 public class SplashPrincipal extends javax.swing.JFrame {
 
-    private Thread tiempo = null;
+    static private Thread tiempo = null;
+    static SplashPrincipal splash = new SplashPrincipal();
+
     public SplashPrincipal() {
         initComponents();
-        
+
         //centra la pantalla
         this.setLocationRelativeTo(null);
 //        AWTUtilities.setWindowOpaque(this,false);
 //        tiempo = new Thread((Runnable) this);
 //        tiempo.start();
-        
+
         //cambia el icono
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/app100.png")).getImage());
         //background
-        ((JPanel)getContentPane()).setOpaque(false);
-        ImageIcon uno=new ImageIcon(this.getClass().getResource("/imagenes/black.jpg"));
-        JLabel fondo= new JLabel();
+        ((JPanel) getContentPane()).setOpaque(false);
+        ImageIcon uno = new ImageIcon(this.getClass().getResource("/imagenes/black.jpg"));
+        JLabel fondo = new JLabel();
         fondo.setIcon(uno);
-        getLayeredPane().add(fondo,JLayeredPane.FRAME_CONTENT_LAYER);
-        fondo.setBounds(0,0,uno.getIconWidth(),uno.getIconHeight());
-    
+        getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+        fondo.setBounds(0, 0, uno.getIconWidth(), uno.getIconHeight());
+
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -96,36 +97,35 @@ public class SplashPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SplashPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SplashPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SplashPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SplashPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
+        //</editor-fold>
+        splash.setVisible(true);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
+
             public void run() {
-                new SplashPrincipal().setVisible(true);
+
+//                splash.setVisible(true);
+                
+                
+//                tiempo.start();
+                int x = 0;
+                while (x < 100) {
+
+                    try {
+                        //Do some work
+                        tiempo.sleep(100);
+                        //Update bar
+                        x++;
+                    } catch (InterruptedException ex) {
+                        break;
+                    }
+                }
+                VentanaPrincipal vp = new VentanaPrincipal();
+                vp.setVisible(true);
+                splash.setVisible(false);
 //                while(tiempo != null)
 //                {
 //                    try{
@@ -137,6 +137,7 @@ public class SplashPrincipal extends javax.swing.JFrame {
 //                }
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
